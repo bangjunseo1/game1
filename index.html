@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reinforcement Game</title>
+</head>
+<body>
+    <h1>Reinforcement Game</h1>
+    <p>Click the button to try your luck!</p>
+    <button id="reinforceButton">Reinforce</button>
+    <p>Current level: <span id="levelDisplay">1</span></p>
+    <p>Current reinforcement probability: <span id="probabilityDisplay">100%</span></p>
+
+    <script>
+        // Initial level and probability of reinforcement
+        let level = 1;
+        let reinforcementProbability = 1.0;
+
+        // Function to update the display of level and probability
+        function updateDisplay() {
+            const levelDisplay = document.getElementById('levelDisplay');
+            levelDisplay.textContent = level;
+
+            const probabilityDisplay = document.getElementById('probabilityDisplay');
+            probabilityDisplay.textContent = (reinforcementProbability * 100).toFixed(2) + '%';
+        }
+
+        // Function to handle reinforcement button click
+        function reinforce() {
+            // Generate a random number between 0 and 1
+            const random = Math.random();
+
+            // Check if the random number is less than the current reinforcement probability
+            if (random < reinforcementProbability) {
+                // If successful, provide a reward
+                alert('Congratulations! You reinforced successfully!');
+            } else {
+                // If unsuccessful, display failure message
+                alert('Reinforcement failed. Better luck next time!');
+            }
+
+            // Increase level and decrease probability by 5%
+            level++;
+            reinforcementProbability -= 0.05;
+            // Ensure the probability does not go below 0
+            if (reinforcementProbability < 0) {
+                reinforcementProbability = 0;
+            }
+            updateDisplay();
+        }
+
+        // Add event listener to the reinforcement button
+        document.getElementById('reinforceButton').addEventListener('click', reinforce);
+
+        // Initial display update
+        updateDisplay();
+    </script>
+</body>
+</html>
